@@ -1,0 +1,38 @@
+# Maven
+target/
+**/target/
+*.iml
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ / VSCode
+.idea/
+.project
+.classpath
+.settings/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Node
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+dist/
+coverage/
+.pnpm-debug.log
+
+# Generated
+*.DS_Store
+*.orig
+
+# Docker
+.docker/
+

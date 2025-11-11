@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: caba-bff
+
+services:
+  core: ${CORE_SERVICE_URL:http://localhost:8080}
+  agenda: ${AGENDA_SERVICE_URL:http://localhost:4001}
+  notifications: ${NOTIFICATIONS_SERVICE_URL:http://localhost:4002}
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:U0VDUkVUT0tFTlBST0RFWENBQkFQUk8yMDI1MTExMA==}
+    issuer: ${JWT_ISSUER:caba-core}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+spring:
+  application:
+    name: bff-gateway
+

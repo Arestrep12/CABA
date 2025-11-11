@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CABA Pro - MongoDB Schema",
+  "description": "Esquema completo de las colecciones MongoDB para agenda-service",
+  "type": "object",
+  "properties": {
+    "collections": {
+      "type": "object",
+      "properties": {
+        "assignments": {
+          "type": "object",
+          "description": "Colección de asignaciones de árbitros a partidos",
+          "properties": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "assignmentId": {
+                  "type": "string",
+                  "description": "ID único de la asignación",
+                  "required": true,
+                  "unique": true
+                },
+                "refereeId": {
+                  "type": "string",
+                  "description": "ID del árbitro (UUID del sistema principal)",
+                  "required": true,
+                  "indexed": true
+                },
+                "matchId": {
+                  "type": "string",
+                  "description": "ID del partido (UUID del sistema principal)",
+                  "required": true
+                },
+                "scheduledAt": {
+                  "type": "date",
+                  "description": "Fecha y hora programada del partido",
+                  "required": true
+                },
+                "role": {
+                  "type": "string",
+                  "description": "Rol del árbitro en el partido",
+                  "required": true,
+                  "enum": ["PRIMER_ARBITRO", "SEGUNDO_ARBITRO", "APUNTADOR", "CRONOMETRADOR"]
+                },
+                "status": {
+                  "type": "string",
+                  "description": "Estado de la asignación",
+                  "required": true,
+                  "enum": ["PENDING", "ACCEPTED", "REJECTED", "CANCELLED"],
+                  "default": "PENDING",
+                  "uppercase": true
+                },
+                "createdAt": {
+                  "type": "date",
+                  "description": "Fecha de creación (automático)",
+                  "auto": true
+                },
+                "updatedAt": {
+                  "type": "date",
+                  "description": "Fecha de última actualización (automático)",
+                  "auto": true
+                }
+              },
+              "required": ["assignmentId", "refereeId", "matchId", "scheduledAt", "role", "status"]
+            },
+            "indexes": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "default": [
+                {
+                  "fields": { "assignmentId": 1 },
+                  "options": { "unique": true }
+                },
+                {
+                  "fields": { "refereeId": 1 },
+                  "options": {}
+                },
+                {
+                  "fields": { "refereeId": 1, "scheduledAt": 1 },
+                  "options": {}
+                }
+              ]
+            }
+          }
+        },
+        "availabilities": {
+          "type": "object",
+          "description": "Colección de disponibilidades de árbitros",
+          "properties": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refereeId": {
+                  "type": "string",
+                  "description": "ID del árbitro (UUID del sistema principal)",
+                  "required": true,
+                  "indexed": true
+                },
+                "dayOfWeek": {
+                  "type": "number",
+                  "description": "Día de la semana (0=Domingo, 1=Lunes, ..., 6=Sábado)",
+                  "required": true,
+                  "minimum": 0,
+                  "maximum": 6
+                },
+                "startTime": {
+                  "type": "string",
+                  "description": "Hora de inicio en formato HH:mm",
+                  "required": true,
+                  "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$"
+                },
+                "endTime": {
+                  "type": "string",
+                  "description": "Hora de fin en formato HH:mm",
+                  "required": true,
+                  "pattern": "^([0-1][0-9]|2[0-3]):[0-5][0-9]$"
+                },
+                "createdAt": {
+                  "type": "date",
+                  "description": "Fecha de creación (automático)",
+                  "auto": true
+                },
+                "updatedAt": {
+                  "type": "date",
+                  "description": "Fecha de última actualización (automático)",
+                  "auto": true
+                }
+              },
+              "required": ["refereeId", "dayOfWeek", "startTime", "endTime"]
+            },
+            "indexes": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              },
+              "default": [
+                {
+                  "fields": { "refereeId": 1 },
+                  "options": {}
+                },
+                {
+                  "fields": { "refereeId": 1, "dayOfWeek": 1, "startTime": 1, "endTime": 1 },
+                  "options": { "unique": true }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(content, pageTitle='CABA Pro')">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${pageTitle}">CABA Pro</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+</head>
+<body>
+<header class="app-header">
+    <div class="logo">CABA Pro</div>
+    <nav>
+        <a th:href="@{/dashboard}">Dashboard</a>
+        <a th:href="@{/admin/arbitros}" sec:authorize="hasRole('ADMIN')">Árbitros</a>
+        <a th:href="@{/admin/torneos}" sec:authorize="hasRole('ADMIN')">Torneos</a>
+        <a th:href="@{/logout}">Salir</a>
+        <span class="user-chip" sec:authorize="isAuthenticated()"
+              sec:text="${#authentication.name}">usuario</span>
+    </nav>
+</header>
+<main class="app-main">
+    <section th:replace="${content}"></section>
+</main>
+<footer class="app-footer">
+    <span>© 2025 CABA Pro</span>
+</footer>
+</body>
+</html>
+

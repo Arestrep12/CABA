@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: layout(~{::section}, 'No encontrado · CABA Pro')">
+<section class="card centered">
+    <h1>404</h1>
+    <p th:text="${error} ?: 'El recurso solicitado no existe.'">El recurso solicitado no existe.</p>
+    <a th:href="@{/dashboard}" class="button">Volver al dashboard</a>
+</section>
+</html>
+

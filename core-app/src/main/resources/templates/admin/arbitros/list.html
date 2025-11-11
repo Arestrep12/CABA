@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: layout(~{::section}, 'Árbitros · CABA Pro')">
+<section>
+    <h1>Gestión de Árbitros</h1>
+
+    <div class="grid-two-columns">
+        <div class="card">
+            <h2>Registrar nuevo árbitro</h2>
+            <form th:action="@{/admin/arbitros}" th:object="${form}" method="post" class="form-grid">
+                <div class="form-error" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}">Error</p>
+                </div>
+                <label>Nombres
+                    <input type="text" th:field="*{nombres}" required/>
+                </label>
+                <label>Apellidos
+                    <input type="text" th:field="*{apellidos}" required/>
+                </label>
+                <label>Email
+                    <input type="email" th:field="*{email}" required/>
+                </label>
+                <label>Tipo Documento
+                    <select th:field="*{tipoDocumento}">
+                        <option th:each="tipo : ${tiposDocumento}" th:value="${tipo}" th:text="${tipo}"></option>
+                    </select>
+                </label>
+                <label>Número Documento
+                    <input type="text" th:field="*{numeroDocumento}" required/>
+                </label>
+                <label>Especialidad
+                    <select th:field="*{especialidad}">
+                        <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp}"></option>
+                    </select>
+                </label>
+                <label>Escalafón
+                    <select th:field="*{escalafon}">
+                        <option th:each="esc : ${escalafones}" th:value="${esc}" th:text="${esc}"></option>
+                    </select>
+                </label>
+                <label>Foto (URL)
+                    <input type="url" th:field="*{fotoUrl}" placeholder="https://..."/>
+                </label>
+                <label>Fecha ingreso
+                    <input type="date" th:field="*{fechaIngreso}"/>
+                </label>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Árbitros activos</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Especialidad</th>
+                    <th>Escalafón</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="arbitro : ${arbitros}">
+                    <td th:text="${arbitro.nombres + ' ' + arbitro.apellidos}">Nombre</td>
+                    <td th:text="${arbitro.especialidad}">CAMPO</td>
+                    <td th:text="${arbitro.escalafon}">PRIMERA</td>
+                    <td th:text="${arbitro.email}">correo@dominio.com</td>
+                    <td>
+                        <form th:action="@{|/admin/arbitros/${arbitro.id}/desactivar|}" method="post">
+                            <button type="submit" class="danger">Desactivar</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(arbitros)}">
+                    <td colspan="5">No hay árbitros registrados.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</html>
+

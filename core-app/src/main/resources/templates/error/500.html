@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: layout(~{::section}, 'Error interno · CABA Pro')">
+<section class="card centered danger">
+    <h1>Ups, algo salió mal</h1>
+    <p th:text="${error} ?: 'Estamos trabajando para solucionarlo.'">Estamos trabajando para solucionarlo.</p>
+    <a th:href="@{/dashboard}" class="button">Volver al dashboard</a>
+</section>
+</html>
+

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: layout(~{::section}, 'Dashboard · CABA Pro')">
+<section>
+    <h1>Panel de Control</h1>
+    <div class="metrics-grid">
+        <div class="metric">
+            <span class="metric-label">Asignaciones totales</span>
+            <span class="metric-value" th:text="${resumen.totalAsignaciones}">0</span>
+        </div>
+        <div class="metric success">
+            <span class="metric-label">Aceptadas</span>
+            <span class="metric-value" th:text="${resumen.totalAceptadas}">0</span>
+        </div>
+        <div class="metric warning">
+            <span class="metric-label">Pendientes</span>
+            <span class="metric-value" th:text="${resumen.totalPendientes}">0</span>
+        </div>
+        <div class="metric danger">
+            <span class="metric-label">Rechazadas</span>
+            <span class="metric-value" th:text="${resumen.totalRechazadas}">0</span>
+        </div>
+        <div class="metric">
+            <span class="metric-label">% Aceptadas</span>
+            <span class="metric-value" th:text="${#numbers.formatDecimal(resumen.porcentajeAceptadas, 0, 2)}">0</span>
+        </div>
+        <div class="metric">
+            <span class="metric-label">Torneos vigentes</span>
+            <span class="metric-value" th:text="${resumen.torneosVigentes}">0</span>
+        </div>
+    </div>
+
+    <section class="card" th:if="${resumen.climaActual != null}">
+        <h2>Clima actual</h2>
+        <p class="muted">
+            <span th:text="${resumen.climaActual.ciudad}">Ciudad</span> ·
+            <span th:text="${resumen.climaActual.descripcion}">Descripción</span>
+        </p>
+        <div class="metrics-grid">
+            <div class="metric">
+                <span class="metric-label">Temperatura</span>
+                <span class="metric-value">
+                    <span th:text="${#numbers.formatDecimal(resumen.climaActual.temperatura, 0, 1)}">0</span>
+                    °C
+                </span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Sensación térmica</span>
+                <span class="metric-value">
+                    <span th:text="${#numbers.formatDecimal(resumen.climaActual.sensacionTermica, 0, 1)}">0</span>
+                    °C
+                </span>
+            </div>
+            <div class="metric">
+                <span class="metric-label">Humedad</span>
+                <span class="metric-value">
+                    <span th:text="${resumen.climaActual.humedad}">0</span>
+                    %
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Top Árbitros Activos</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Asignaciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="arbitro, iter : ${resumen.topArbitros}">
+                <td th:text="${iter.index + 1}">1</td>
+                <td th:text="${arbitro.nombreCompleto}">Nombre</td>
+                <td th:text="${arbitro.asignaciones}">0</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(resumen.topArbitros)}">
+                <td colspan="3">No hay datos disponibles.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</section>
+</html>
+

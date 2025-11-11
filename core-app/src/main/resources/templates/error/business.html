@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: layout(~{::section}, 'Regla de negocio · CABA Pro')">
+<section class="card centered warning">
+    <h1>Atención</h1>
+    <p th:text="${error} ?: 'La operación no pudo completarse debido a una regla de negocio.'">
+        La operación no pudo completarse debido a una regla de negocio.
+    </p>
+    <a th:href="@{/dashboard}" class="button">Volver al dashboard</a>
+</section>
+</html>
+

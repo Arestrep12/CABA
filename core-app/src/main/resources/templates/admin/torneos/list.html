@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="fragments/layout :: layout(~{::section}, 'Torneos · CABA Pro')">
+<section>
+    <h1>Gestión de Torneos</h1>
+
+    <div class="grid-two-columns">
+        <div class="card">
+            <h2>Registrar torneo</h2>
+            <form th:action="@{/admin/torneos}" th:object="${form}" method="post" class="form-grid">
+                <div class="form-error" th:if="${#fields.hasErrors('*')}">
+                    <p th:each="err : ${#fields.errors('*')}" th:text="${err}">Error</p>
+                </div>
+                <label>Nombre
+                    <input type="text" th:field="*{nombre}" required/>
+                </label>
+                <label>Descripción
+                    <textarea th:field="*{descripcion}" rows="3"></textarea>
+                </label>
+                <div class="inline-group">
+                    <label>Inicio
+                        <input type="date" th:field="*{periodo.fechaInicio}" required/>
+                    </label>
+                    <label>Fin
+                        <input type="date" th:field="*{periodo.fechaFin}" required/>
+                    </label>
+                </div>
+                <fieldset>
+                    <legend>Tarifas</legend>
+                    <div th:each="tarifa, iter : *{tarifas}">
+                        <label>Escalafón
+                            <select th:field="*{tarifas[__${iter.index}__].escalafon}">
+                                <option th:each="esc : ${escalafones}" th:value="${esc}" th:text="${esc}"></option>
+                            </select>
+                        </label>
+                        <label>Rol
+                            <select th:field="*{tarifas[__${iter.index}__].rol}">
+                                <option th:each="rol : ${rolesAsignacion}" th:value="${rol}" th:text="${rol}"></option>
+                            </select>
+                        </label>
+                        <label>Monto
+                            <input type="number" step="0.01" min="0"
+                                   th:field="*{tarifas[__${iter.index}__].monto}" required/>
+                        </label>
+                    </div>
+                </fieldset>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Torneos</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Periodo</th>
+                    <th>Tarifas</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="torneo : ${torneos}">
+                    <td>
+                        <strong th:text="${torneo.nombre}">Torneo</strong><br/>
+                        <small th:text="${torneo.descripcion}">Descripción</small>
+                    </td>
+                    <td th:text="${torneo.periodo.fechaInicio + ' - ' + torneo.periodo.fechaFin}">Periodo</td>
+                    <td>
+                        <ul>
+                            <li th:each="tarifa : ${torneo.tarifas}"
+                                th:text="${tarifa.escalafon + ' · ' + tarifa.rol + ': $' + #numbers.formatDecimal(tarifa.monto, 1, 2)}">
+                                Tarifa
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <form th:action="@{|/admin/torneos/${torneo.id}/eliminar|}" method="post">
+                            <button type="submit" class="danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(torneos)}">
+                    <td colspan="4">No hay torneos registrados.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+</html>
+

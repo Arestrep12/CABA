@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: caba-core
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/caba}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  thymeleaf:
+    cache: false
+  flyway:
+    enabled: false
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:U0VDUkVUT0tFTlBST0RFWENBQkFQUk8yMDI1MTExMA==}
+    issuer: caba-core
+    expiration-seconds: ${JWT_EXPIRATION:3600}
+
+services:
+  agenda:
+    url: ${AGENDA_SERVICE_URL:http://localhost:4001}
+  notifications:
+    url: ${NOTIFICATIONS_SERVICE_URL:http://localhost:4002}
+
+integrations:
+  openweather:
+    enabled: ${OPENWEATHER_ENABLED:false}
+    api-key: ${OPENWEATHER_API_KEY:}
+    base-url: ${OPENWEATHER_BASE_URL:https://api.openweathermap.org/data/2.5}
+    default-city: ${OPENWEATHER_DEFAULT_CITY:Buenos Aires,AR}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  level:
+    root: INFO
+    com.example.caba: DEBUG
+

@@ -1,0 +1,233 @@
+:root {
+    --color-primary: #1c3faa;
+    --color-secondary: #00baff;
+    --color-danger: #d14343;
+    --color-warning: #f0ad4e;
+    --color-success: #1e9e63;
+    --color-dark: #1a202c;
+    --color-light: #f7fafc;
+    --radius: 10px;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: var(--color-light);
+    color: var(--color-dark);
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--color-primary);
+    color: white;
+}
+
+.app-header nav a {
+    color: white;
+    margin-left: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.app-header nav a:hover {
+    text-decoration: underline;
+}
+
+.user-chip {
+    display: inline-block;
+    margin-left: 1rem;
+    padding: 0.35rem 0.8rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    font-size: 0.85rem;
+}
+
+.app-main {
+    padding: 2rem;
+    min-height: 80vh;
+}
+
+.app-footer {
+    text-align: center;
+    padding: 1rem;
+    background: #202a48;
+    color: white;
+}
+
+.card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: 0 10px 25px rgba(30, 61, 123, 0.1);
+    margin-bottom: 2rem;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.metric {
+    background: white;
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    box-shadow: 0 10px 20px rgba(0, 186, 255, 0.15);
+}
+
+.metric.success { border-left: 4px solid var(--color-success); }
+.metric.warning { border-left: 4px solid var(--color-warning); }
+.metric.danger { border-left: 4px solid var(--color-danger); }
+
+.metric-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.metric-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: #f1f5f9;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+button, .button {
+    display: inline-block;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.6rem 1.2rem;
+    background: var(--color-primary);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover, .button:hover {
+    opacity: 0.9;
+}
+
+button.danger {
+    background: var(--color-danger);
+}
+
+.grid-two-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5f5;
+    background: #f8fafc;
+}
+
+.form-error {
+    background: rgba(209, 67, 67, 0.1);
+    border: 1px solid rgba(209, 67, 67, 0.4);
+    border-radius: var(--radius);
+    padding: 0.8rem;
+    color: var(--color-danger);
+}
+
+.inline-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.login-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+.login-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 320px;
+    box-shadow: 0 30px 45px rgba(0, 0, 0, 0.2);
+}
+
+.login-card h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.login-card label {
+    display: block;
+    margin-top: 1rem;
+}
+
+.login-card input {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.login-card button {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.login-feedback {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.login-feedback .error {
+    color: var(--color-danger);
+}
+
+.login-feedback .info {
+    color: var(--color-success);
+}
+
+.card.centered {
+    max-width: 520px;
+    margin: 4rem auto;
+    text-align: center;
+}
+
+.card.warning {
+    border-left: 4px solid var(--color-warning);
+}
+
+.card.danger {
+    border-left: 4px solid var(--color-danger);
+}
+
